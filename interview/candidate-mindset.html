@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Candidate mindset</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
+  <style>
+    body { margin: 0; background: #fff; color: #111; }
+    .bar {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 0;
+      font: 16px/1.4 Georgia, serif;
+    }
+    .bar a { color: #111; }
+    zero-md { display: block; max-width: 40rem; margin: 0 auto; padding: 0.5rem 1.25rem 3rem; }
+  </style>
+</head>
+<body>
+  <p class="bar"><a href="../index.html">← Talks</a></p>
+  <zero-md src="candidate-mindset.md">
+    <template data-append>
+      <style>
+        .markdown-body {
+          color-scheme: light;
+          background: #fff;
+          color: #111;
+          font-family: Georgia, "Times New Roman", serif;
+          --bgColor-default: #fff;
+          --bgColor-muted: #fff;
+          --fgColor-default: #111;
+          --fgColor-muted: #333;
+          --borderColor-default: #111;
+          --borderColor-muted: #111;
+        }
+        .markdown-body a { color: #111; }
+        .markdown-body code, .markdown-body pre { background: #f4f4f4; color: #111; }
+        .markdown-body table tr,
+        .markdown-body table tr:nth-child(2n),
+        .markdown-body th,
+        .markdown-body td {
+          background: #fff;
+          color: #111;
+          border-color: #111;
+        }
+      </style>
+    </template>
+  </zero-md>
+</body>
+</html>
