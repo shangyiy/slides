@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>September talk · Where attention goes</title>
+  <link rel="stylesheet" href="../style/deck-present.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;0,7..72,700;1,7..72,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #eef2f6;
+      --surface: #ffffff;
+      --ink: #1a2332;
+      --muted: #4a5a6e;
+      --line: #d0dae6;
+      --line-soft: #e4ebf2;
+      --accent: #0b6e6e;
+      --accent-soft: #e0f2f1;
+      --warn: #9a4b1a;
+      --warn-bg: #fff4eb;
+      --paper: #f7f9fc;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+      --display: "Literata", Georgia, serif;
+      --measure: 72rem;
+      --page: 88rem;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--body);
+      font-size: 1.25rem;
+      line-height: 1.62;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-underline-offset: 0.15em; }
+    .page { max-width: var(--page); margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.35rem;
+      border-bottom: 2px solid var(--ink);
+    }
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.7rem;
+    }
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 28ch;
+      margin-bottom: 0.75rem;
+    }
+    .lede {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.5;
+    }
+    .facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.15rem;
+    }
+    .fact {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+    }
+    section { margin-bottom: 2.5rem; max-width: var(--measure); }
+    section > h2 {
+      font-family: var(--display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .sec-intent {
+      font-size: 1.02rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      max-width: 48ch;
+    }
+    /* Claim illustration — only next to a claim, not section titles */
+    .ae .illust {
+      margin: 0;
+      border-top: 1px solid var(--line-soft);
+      background: var(--paper);
+    }
+    .ae .illust img,
+    .ae .illust object {
+      display: block;
+      width: 100%;
+      max-height: 22rem;
+      object-fit: contain;
+      object-position: center;
+      background: #f7f9fc;
+    }
+    .ae .illust.diagram {
+      border-top: 1px solid var(--line-soft);
+    }
+    .thesis .illust {
+      margin-top: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      max-width: 42rem;
+    }
+    .thesis .illust img {
+      display: block;
+      width: 100%;
+      max-height: 18rem;
+      object-fit: contain;
+      background: #f7f9fc;
+    }
+    .thesis .illust figcaption {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.45rem 0.85rem;
+      background: var(--paper);
+    }
+    .ae .illust figcaption {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.45rem 0.85rem 0.55rem;
+    }
+    section p { margin-bottom: 0.75rem; }
+    section ul { margin: 0 0 0.75rem 1.2rem; }
+    section li { margin-bottom: 0.35rem; }
+    section li::marker { color: var(--accent); }
+    .muted { color: var(--muted); }
+    .small { font-size: 0.95rem; color: var(--muted); }
+    code {
+      font-family: var(--mono);
+      font-size: 0.88em;
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      padding: 0.08em 0.35em;
+      border-radius: 4px;
+    }
+
+    .thesis {
+      background: var(--accent-soft);
+      border-left: 5px solid var(--accent);
+      padding: 1.1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+      max-width: var(--measure);
+    }
+    .thesis .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .thesis p {
+      font-family: var(--display);
+      font-size: 1.18rem;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Claim cards (doc) */
+    .ae {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 0.85rem 0;
+      overflow: hidden;
+    }
+    .ae .assert {
+      padding: 0.9rem 1.1rem 0.65rem;
+    }
+    .ae .assert .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warn);
+      margin-bottom: 0.3rem;
+    }
+    .ae.key .assert .lab { color: var(--accent); }
+    .ae .assert p {
+      font-family: var(--display);
+      font-size: 1.12rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin: 0;
+    }
+    .ae .evidence {
+      padding: 0.75rem 1.1rem 1rem;
+      background: var(--paper);
+      border-top: 1px solid var(--line-soft);
+    }
+    .ae .evidence p {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+    .ae .evidence ul, .ae .evidence ol {
+      margin: 0.2rem 0 0 1.15rem;
+      font-size: 1rem;
+    }
+    .ae .evidence li { margin-bottom: 0.28rem; color: var(--ink); }
+    .ae .evidence li::marker { color: var(--accent); }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0.75rem 0 1rem;
+      font-size: 0.92rem;
+    }
+    .flow span {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+    }
+    .flow .arr {
+      border: none;
+      background: none;
+      color: var(--accent);
+      font-weight: 700;
+      padding: 0 0.1rem;
+    }
+    .flow .you {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      font-weight: 700;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    @media (max-width: 720px) {
+      .grid2 { grid-template-columns: 1fr; }
+    }
+    .gap {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      margin: 0.5rem 0;
+    }
+    .gap .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .gap h3 {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+    }
+    .gap p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+
+    .open {
+      background: var(--warn-bg);
+      border: 1px solid #e8c9a8;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+    }
+    .open .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warn);
+      margin-bottom: 0.4rem;
+    }
+    .open ul { margin: 0 0 0 1.15rem; }
+    .open li { margin-bottom: 0.35rem; color: var(--muted); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.98rem;
+      margin: 0.75rem 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid var(--line-soft);
+      vertical-align: top;
+    }
+    th {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--paper);
+      font-weight: 500;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    footer {
+      margin-top: 1.5rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .mode-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 0.65rem 0;
+      margin: -0.5rem 0 1.25rem;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .mode-bar .hint {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .mode-bar button {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--surface);
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+    }
+    .mode-bar button:hover { filter: brightness(1.08); }
+
+    /* presentation styles: see ../style/deck-present.css */
+
+    /* one page per slide + transcript */
+    .slide-page {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin: 0 0 2rem;
+      overflow: hidden;
+      max-width: var(--measure);
+    }
+    .slide-page .slide-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.75rem 1.15rem 0;
+    }
+    .slide-page .slide-on {
+      padding: 0.65rem 1.35rem 1.5rem;
+      border-bottom: 1px solid var(--line-soft);
+      min-height: 22rem;
+    }
+    .slide-page .slide-on h2 {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0 0 0.75rem;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    .slide-page .slide-on .body p {
+      margin: 0 0 0.45rem;
+      color: var(--ink);
+      font-size: 1.18rem;
+    }
+    .slide-page .slide-on .body ul {
+      margin: 0.35rem 0 0.5rem 1.15rem;
+    }
+    .slide-page .slide-on .body li { margin-bottom: 0.28rem; }
+    .slide-page .slide-on .body li::marker { color: var(--accent); }
+    .slide-page .slide-on pre {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      line-height: 1.55;
+      margin: 0.35rem 0 0.5rem;
+      white-space: pre-wrap;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      overflow-x: auto;
+    }
+    .slide-page .slide-on .grid3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.65rem;
+      margin-top: 0.5rem;
+    }
+    .slide-page .slide-on .split-lr {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+      margin-top: 0.35rem;
+      min-width: 0;
+    }
+    .slide-page .slide-on .split-lr figure {
+      margin: 0;
+      min-width: 0;
+    }
+    .slide-page .slide-on .split-lr figure img {
+      max-height: 26rem;
+      max-width: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+    .slide-page .slide-on .split-lr ul {
+      margin: 0;
+      padding-left: 1.15rem;
+      font-size: 1.22rem;
+      min-width: 0;
+    }
+    .slide-page .slide-on .split-lr li {
+      margin-bottom: 0.65rem;
+      overflow-wrap: break-word;
+    }
+    @media (max-width: 720px) {
+      .slide-page .slide-on .grid3 { grid-template-columns: 1fr; }
+      .slide-page .slide-on .split-lr { grid-template-columns: 1fr; }
+    }
+    .slide-page .slide-on .grid3 .cell {
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      padding: 0.75rem 0.85rem;
+    }
+    .slide-page .slide-on .grid3 .cell .lab {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .slide-page .slide-on .grid3 .cell h3 {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      margin: 0 0 0.3rem;
+    }
+    .slide-page .slide-on .grid3 .cell p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .slide-page .slide-on figure {
+      margin: 0.75rem 0 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line-soft);
+    }
+    .slide-page .slide-on figure.img-todo {
+      min-height: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--paper);
+      border-style: dashed;
+    }
+    .slide-page .slide-on figure.img-todo figcaption {
+      border: none;
+      background: transparent;
+      color: var(--warn);
+      font-size: 0.9rem;
+    }
+    /* Workflow flowchart (slide: protect until ready) — left → right for present */
+    .flow-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+      max-width: 28rem;
+      margin: 0.5rem 0 0;
+    }
+    .flow-chart.flow-chart-h {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 0.35rem 0.2rem;
+      max-width: 100%;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      background: var(--surface);
+      min-width: 7.5rem;
+      flex: 1 1 7.5rem;
+      max-width: 11rem;
+    }
+    .flow-chart:not(.flow-chart-h) .flow-step {
+      flex-direction: row;
+      max-width: none;
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      align-items: center;
+    }
+    .flow-step.human {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .flow-step.agent {
+      border-style: dashed;
+      background: var(--paper);
+    }
+    .flow-step .who {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .flow-step.agent .who { color: var(--muted); }
+    .flow-step .what {
+      font-family: var(--display);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .flow-arr {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1;
+      flex: 0 0 auto;
+      padding: 0 0.1rem;
+      align-self: center;
+    }
+    .flow-chart:not(.flow-chart-h) .flow-arr {
+      width: 100%;
+      padding: 0.1rem 0;
+    }
+    @media (max-width: 720px) {
+      .flow-chart.flow-chart-h {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .flow-chart.flow-chart-h .flow-step {
+        max-width: none;
+        flex-direction: row;
+        display: grid;
+        grid-template-columns: 6.5rem 1fr;
+      }
+      .flow-chart.flow-chart-h .flow-arr {
+        transform: rotate(90deg);
+      }
+    }
+    .slide-page .slide-on figure img {
+      display: block;
+      width: 100%;
+      max-height: 28rem;
+      object-fit: contain;
+      background: #f7f9fc;
+    }
+    .slide-page .slide-on figure.qr-pair img {
+      max-height: 36rem;
+      max-width: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+    .slide-page .slide-on .body p,
+    .slide-page .slide-on .body li {
+      overflow-wrap: break-word;
+    }
+    .slide-page .slide-on figcaption {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      background: var(--paper);
+    }
+    .slide-page .transcript {
+      background: var(--warn-bg);
+      border-top: 1px solid #e8c9a8;
+      padding: 1rem 1.35rem 1.35rem;
+    }
+    .slide-page .transcript .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warn);
+      margin-bottom: 0.4rem;
+    }
+    .slide-page .transcript p {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .slide-page .transcript p:last-child { margin-bottom: 0; }
+    .slide-page.section-title {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+    .slide-page.section-title .slide-on h2 {
+      font-size: 1.85rem;
+      max-width: 22ch;
+    }
+    .slide-page.section-title .transcript {
+      background: var(--accent-soft);
+      border-top-color: var(--line);
+    }
+    .slide-page.section-title .transcript .lab {
+      color: var(--accent);
+    }
+    .toc {
+      max-width: var(--measure);
+      margin: 0 0 1.75rem;
+      padding: 1rem 1.15rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .toc .lab {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .toc-tree {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .toc-tree > li.toc-section {
+      margin: 0.85rem 0 0.25rem;
+      padding: 0;
+    }
+    .toc-tree > li.toc-section:first-child { margin-top: 0; }
+    .toc-tree > li.toc-section > a {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.15rem 0;
+    }
+    .toc-tree > li.toc-section > a:hover { color: var(--accent); }
+    .toc-tree .toc-slides {
+      list-style: none;
+      margin: 0.25rem 0 0.5rem;
+      padding: 0 0 0 1.35rem;
+      border-left: 2px solid var(--line-soft);
+    }
+    .toc-tree .toc-slides li {
+      margin: 0;
+      padding: 0.2rem 0 0.2rem 0.85rem;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .toc-tree .toc-slides a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .toc-tree .toc-slides a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .toc-tree .toc-slides .toc-num {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-right: 0.4rem;
+    }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="mode-bar">
+      <span class="hint"><a href="../index.html">← Talks</a> · <kbd style="font-family:var(--mono);font-size:0.72rem;border:1px solid var(--line);padding:0.1rem 0.3rem;border-radius:3px">P</kbd> present</span>
+      <button type="button" id="btn-present">Present</button>
+    </div>
+
+    <header>
+      <p class="meta">agentic engineering · ~30 min</p>
+      <h1>Where attention goes</h1>
+      <p class="lede">
+        Practical agentic workflow — not prompt engineering.
+        AI increases capacity by reclaiming attention; invest in workflow, evaluation, and judgment.
+      </p>
+    </header>
+
+    <nav class="toc" id="toc">
+      <div class="lab">Slides</div>
+      <ul class="toc-tree" id="toc-list"></ul>
+    </nav>
+
+    <div id="pages"></div>
+
+    <footer>
+      agentic-tooling/engineering-attention.html
+    </footer>
+  </div>
+
+  <div id="deck" hidden>
+    <div class="deck-chrome">
+      <div>
+        <strong id="slide-label">1 / N</strong>
+        <span class="keys"> · <kbd>→</kbd>/<kbd>←</kbd> section · <kbd>↓</kbd>/<kbd>↑</kbd> slide · <kbd>Esc</kbd> · <kbd>F</kbd></span>
+      </div>
+      <span class="end"><a href="../index.html">Talks</a><button type="button" id="btn-exit">Exit</button></span>
+    </div>
+    <div class="stage" id="stage"></div>
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <script>
+    /**
+     * Agentic attention deck.
+     * Title = on screen. Body = on screen. Transcript = speak.
+     * Shape matches interview/hiring-manager-lens.html present deck.
+     */
+    const SLIDES = [
+      // ── Section 1 · Where should I spend my attention? ──
+      {
+        section: "attention",
+        kind: "section",
+        title: "Where should I spend my attention?",
+      },
+      {
+        section: "attention",
+        title: "Human attention is the bottleneck.",
+        layout: "img-left",
+        body: [
+          "AI is becoming cheaper than human attention.",
+          "Don't spend attention where an agent is already good enough.",
+          "Spend attention where engineering judgment matters.",
+        ],
+        img: "images/s01.jpg",
+        transcript: [
+          "This is not a prompt-engineering talk.",
+          "Main message: AI increases capacity by reclaiming human attention.",
+          "Long-term investment is workflow, evaluation, and engineering judgment — not giant prompts.",
+        ],
+      },
+      {
+        section: "attention",
+        title: "Free your attention from implementation.",
+        layout: "img-left",
+        body: [
+          "Unfinished work should not sit in your head.",
+          "Delegate implementation, repetitive debugging, and boilerplate.",
+          "Human attention should move upward.",
+        ],
+        img: "images/s02.jpg",
+        transcript: [
+          "Don't spend attention where the agent is already good enough.",
+          "Implementation, repetitive debugging, boilerplate — hand them off.",
+          "Your attention moves up the stack.",
+        ],
+      },
+      {
+        section: "attention",
+        title: "Keep humans at planning and review.",
+        layout: "img-left",
+        body: [
+          "Humans decide direction.",
+          "Humans review plans and validate architecture.",
+          "Humans make final decisions.",
+        ],
+        img: "images/s03.jpg",
+        transcript: [
+          "You stay for planning and review — direction, architecture, final call.",
+          "Implementation and middle work can leave your hands; judgment stays with you.",
+        ],
+      },
+      {
+        section: "attention",
+        title: "Capacity may increase 10×. The harder question becomes: what valuable work fills the queue?",
+        layout: "img-wide",
+        img: "images/s04.jpg",
+        transcript: [
+          "You reclaimed attention and raised throughput.",
+          "The open problem is no longer \"can I ship more PRs?\" — it's what valuable work fills that capacity.",
+          "Transition: here's the workflow I currently use.",
+        ],
+      },
+
+      // ── Section 2 · What does that look like in practice? ──
+      {
+        section: "workflow",
+        kind: "section",
+        title: "One workflow that reclaims my attention.",
+      },
+      {
+        section: "workflow",
+        title: "Protect human attention until the work is ready.",
+        bodyHtml: `<div class="flow-chart flow-chart-h" aria-label="Human and agent workflow">
+  <div class="flow-step human"><span class="who">Human</span><span class="what">Problem / direction</span></div>
+  <div class="flow-arr" aria-hidden="true">→</div>
+  <div class="flow-step agent"><span class="who">Agent</span><span class="what">Planning</span></div>
+  <div class="flow-arr" aria-hidden="true">→</div>
+  <div class="flow-step human"><span class="who">Human</span><span class="what">Sign-off</span></div>
+  <div class="flow-arr" aria-hidden="true">→</div>
+  <div class="flow-step agent"><span class="who">Agent</span><span class="what">Implementation</span></div>
+  <div class="flow-arr" aria-hidden="true">→</div>
+  <div class="flow-step agent"><span class="who">Agent</span><span class="what">Validation</span></div>
+  <div class="flow-arr" aria-hidden="true">→</div>
+  <div class="flow-step human"><span class="who">Human</span><span class="what">Review</span></div>
+</div>
+<p class="small" style="margin-top:0.75rem;color:var(--muted)">Humans only at direction, sign-off, and final review — not on half-finished middle work.</p>`,
+        transcript: [
+          "This is the workflow at a high level.",
+          "I don't immediately review the first thing the agent produces.",
+          "Goal: protect my attention until the work is close to ready.",
+          "Every minute reviewing half-finished work is wasted attention.",
+          "Don't name Skill(/grill-me) or unit-test skills yet — that comes next.",
+        ],
+      },
+      {
+        section: "workflow",
+        title: "Every stage exists because something can go wrong.",
+        body: [
+          "Developer ≠ Validator: the agent that implements must not be the agent that validates.",
+        ],
+        bodyHtml: `<table>
+  <thead><tr><th>Stage</th><th>Typical failure</th><th>What I added, practically speaking</th></tr></thead>
+  <tbody>
+    <tr><td>Planning</td><td>Doesn't understand the codebase</td><td>Skill(/grill-me) + Agent(validator)</td></tr>
+    <tr><td>Planning</td><td>Reinvents existing tools</td><td>Design principles + Agent(validator)</td></tr>
+    <tr><td>Implementation / testing</td><td>Free-runs without structure; weak or shallow tests</td><td>TDD with Skill(/unit-tests) &amp; Skill(/test-oracle)</td></tr>
+    <tr><td>PR</td><td>Half-finished work</td><td>Agent(validator) + CI + E2E + PR readiness</td></tr>
+  </tbody>
+</table>`,
+        transcript: [
+          "Why isn't the workflow just \"plan → code\"?",
+          "Every stage has common failure modes. I don't expect the agent to magically avoid them.",
+          "Core rule folded in here: Developer ≠ Validator. Same agent grading its own work hides weak tests and bugs — like grading your own homework.",
+          "Skills use Skill(/name). Separate validator work uses Agent(validator) — a different agent/subagent, not the implementer.",
+          "Implementation and testing are one stage: structure the work with TDD via Skill(/unit-tests) and Skill(/test-oracle).",
+          "When I finally review, I spend attention on engineering decisions — not PR description, shallow tests, or reinvented utilities.",
+        ],
+      },
+      {
+        section: "workflow",
+        title: "Automation should earn back attention.",
+        layout: "img-left",
+        body: [
+          "Skill(/grill-me), Skill(/unit-tests), Skill(/test-oracle), Agent(validator), CI, E2E, PR readiness.",
+          "Not because they're cool — because they reduce future interruptions.",
+        ],
+        img: "images/s05.jpg",
+        transcript: [
+          "Each automation exists to buy back human attention.",
+          "Transition: so where does this workflow still fail?",
+        ],
+      },
+
+      // ── Section 3 · What I still don't delegate today ──
+      {
+        section: "caution",
+        kind: "section",
+        title: "What I still don't delegate today.",
+      },
+      {
+        section: "caution",
+        title: "Correct code is not the same as good engineering.",
+        layout: "img-left",
+        body: [
+          "Passing tests and shipping a PR do not guarantee:",
+          "good abstractions · maintainability · appropriate boundaries · long-term simplicity.",
+        ],
+        img: "images/s06.jpg",
+        transcript: [
+          "A coding agent can produce working code.",
+          "That doesn't mean it's the code I want to maintain for the next three years.",
+          "This is where I still spend most of my attention.",
+        ],
+      },
+      {
+        section: "caution",
+        title: "Instruction following is still an unsolved problem.",
+        layout: "img-left",
+        body: [
+          "Even with AGENTS.md, Skills, design principles, and examples,",
+          "models still occasionally reinvent existing code, violate abstractions, mix responsibilities, or ignore explicit constraints.",
+        ],
+        img: "images/s07.jpg",
+        transcript: [
+          "This isn't a prompt engineering problem anymore.",
+          "Sometimes the model simply doesn't follow the instructions consistently.",
+          "That's why I rely on validators and human review instead of assuming compliance.",
+        ],
+      },
+
+      // ── Section 4 · Build for tomorrow's models ──
+      {
+        section: "invest",
+        kind: "section",
+        title: "Build for tomorrow's models.",
+      },
+      {
+        section: "invest",
+        title: "Optimize for better models, not today's model.",
+        layout: "img-left",
+        body: [
+          "Heavy prompts, MUST / DO NOT piles, model-specific hacks — they die when the base model improves.",
+          "Don't build: giant prompts and temporary scaffolding on this week's model.",
+          "Build: evaluations, validators, automation, routing, observability, reproducible workflows — the surround that lets models swap.",
+        ],
+        img: "images/s08.jpg",
+        transcript: [
+          "Story: paper over today's weak model with heavy instructions. When the base model improves, that pile often dies.",
+          "Don't overfit this week's ceiling.",
+          "Invest in the harness that survives model jumps: eval, promote, automation, observability — not a permanent skill bridge for one weak model.",
+          "The wall is the model. Build the surround that can swap walls — not more duct tape on this one.",
+        ],
+      },
+
+      // ── Closing ──
+      {
+        section: "close",
+        kind: "section",
+        title: "Close",
+      },
+      {
+        section: "close",
+        title: "Coding is becoming cheaper. Engineering judgment is not (yet).",
+        layout: "img-left",
+        body: [
+          "Models will keep changing. Workflows will too.",
+          "Investments I'm most confident in: evaluation, automation, observability, engineering judgment.",
+        ],
+        img: "images/s09.jpg",
+        transcript: [
+          "Agents make coding cheaper. Judgment — design, priority, what should exist — still sits with you.",
+          "Those durable investments keep paying off no matter which model is strongest next year.",
+          "Reclaim attention. Automate failure modes. Invest in what survives model jumps.",
+        ],
+      },
+
+      // ── Appendix ──
+      {
+        section: "appendix",
+        kind: "section",
+        title: "Appendix",
+      },
+      {
+        section: "appendix",
+        title: "Skills used in the workflow.",
+        bodyHtml: `<ul>
+  <li><a href="https://github.com/shangyiy/life-kit/tree/main/skills/unit-tests" target="_blank" rel="noopener"><code>Skill(/unit-tests)</code></a> — contract → partitions → oracles → tests → gaps (TDD path with <a href="https://github.com/shangyiy/life-kit/tree/main/skills/test-oracle" target="_blank" rel="noopener"><code>Skill(/test-oracle)</code></a>).</li>
+  <li><a href="https://github.com/shangyiy/life-kit/tree/main/skills/test-oracle" target="_blank" rel="noopener"><code>Skill(/test-oracle)</code></a> — how pass/fail is decided for each test.</li>
+  <li><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md" target="_blank" rel="noopener"><code>Skill(/grill-me)</code></a> — one hard question at a time until the plan is clear.</li>
+  <li><code>Agent(validator)</code> — a different agent/subagent from the implementer (not a Skill).</li>
+</ul>`,
+        transcript: [
+          "Links open the life-kit skill sources for unit-tests and test-oracle.",
+          "Skill(/grill-me) is Matt Pocock's plan-stress skill; Agent(validator) is a separate agent role, not a skill file.",
+        ],
+      },
+    ];
+
+    const pages = document.getElementById("pages");
+    const tocList = document.getElementById("toc-list");
+    const deck = document.getElementById("deck");
+    const stage = document.getElementById("stage");
+    const progress = document.getElementById("progress");
+    const slideLabel = document.getElementById("slide-label");
+    let idx = 0;
+    let presenting = false;
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function rich(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/&lt;strong&gt;/g, "<strong>")
+        .replace(/&lt;\/strong&gt;/g, "</strong>")
+        .replace(/&lt;code&gt;/g, "<code>")
+        .replace(/&lt;\/code&gt;/g, "</code>")
+        .replace(/&lt;em&gt;/g, "<em>")
+        .replace(/&lt;\/em&gt;/g, "</em>");
+    }
+
+    function bodyHtml(s) {
+      if (s.kind === "section") return "";
+      if (s.layout === "img-left" && s.img && s.body && s.body.length) {
+        const lis = s.body.map((b) => `<li>${rich(b)}</li>`).join("");
+        return `<div class="split-lr">
+          <figure>
+            <img src="${esc(s.img)}" alt="" />
+          </figure>
+          <ul>${lis}</ul>
+        </div>`;
+      }
+      let html = "";
+      if (s.body && s.body.length) {
+        html += `<div class="body">${s.body.map((p) => `<p>${rich(p)}</p>`).join("")}</div>`;
+      }
+      if (s.bodyHtml) html += s.bodyHtml;
+      if (s.img && s.layout !== "img-left") {
+        html += `<figure><img src="${esc(s.img)}" alt="" /></figure>`;
+      }
+      return html;
+    }
+
+    function sectionOrdinal(i) {
+      let n = 0;
+      for (let j = 0; j <= i; j++) {
+        if (SLIDES[j].kind === "section") n++;
+      }
+      return n;
+    }
+    function contentOrdinal(i) {
+      let n = 0;
+      for (let j = 0; j <= i; j++) {
+        if (SLIDES[j].kind !== "section") n++;
+      }
+      return n;
+    }
+    function contentTotal() {
+      return SLIDES.filter((s) => s.kind !== "section").length;
+    }
+    function sectionTotal() {
+      return SLIDES.filter((s) => s.kind === "section").length;
+    }
+
+    function renderDoc() {
+      pages.innerHTML = "";
+      tocList.innerHTML = "";
+      const cTotal = contentTotal();
+      const sTotal = sectionTotal();
+      let tocSectionLi = null;
+      let tocSlidesOl = null;
+
+      SLIDES.forEach((s, i) => {
+        // ids match on-screen labels (Slide N / Section N), not raw array index
+        const isSection = s.kind === "section";
+        const id = isSection
+          ? `section-${sectionOrdinal(i)}`
+          : `slide-${contentOrdinal(i)}`;
+
+        if (isSection) {
+          tocSectionLi = document.createElement("li");
+          tocSectionLi.className = "toc-section";
+          tocSectionLi.innerHTML = `<a href="#${id}">Section ${sectionOrdinal(i)}. ${esc(s.title)}</a>`;
+          tocSlidesOl = document.createElement("ul");
+          tocSlidesOl.className = "toc-slides";
+          tocSectionLi.appendChild(tocSlidesOl);
+          tocList.appendChild(tocSectionLi);
+        } else if (tocSlidesOl) {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="#${id}"><span class="toc-num">${contentOrdinal(i)}.</span>${esc(s.title)}</a>`;
+          tocSlidesOl.appendChild(li);
+        } else {
+          const li = document.createElement("li");
+          li.className = "toc-section";
+          li.innerHTML = `<a href="#${id}">${esc(s.title)}</a>`;
+          tocList.appendChild(li);
+        }
+
+        const notes = (s.transcript || [])
+          .map((p) => `<p>${rich(p)}</p>`)
+          .join("");
+
+        const el = document.createElement("article");
+        el.className = "slide-page" + (isSection ? " section-title" : "");
+        el.id = id;
+        const notesBlock = notes
+          ? `<div class="transcript">
+            <div class="lab">${isSection ? "Section note" : "Transcript"}</div>
+            ${notes}
+          </div>`
+          : isSection
+            ? ""
+            : `<div class="transcript"><div class="lab">Transcript</div></div>`;
+        const numLabel = isSection
+          ? `Section ${sectionOrdinal(i)} / ${sTotal}`
+          : `Slide ${contentOrdinal(i)} / ${cTotal}`;
+        el.innerHTML = `
+          <div class="slide-num">${numLabel}</div>
+          <div class="slide-on">
+            <h2>${esc(s.title)}</h2>
+            ${isSection ? "" : bodyHtml(s)}
+          </div>
+          ${notesBlock}`;
+        pages.appendChild(el);
+      });
+    }
+
+    /* Present outline matches hiring-manager-lens: s-ae card, claim, evidence, optional illust */
+    function renderPresent(s, i) {
+      if (s.kind === "section") {
+        // Section divider: title text only — no claim card chrome
+        return `<div class="s-section-title"><h2>${esc(s.title || "")}</h2></div>`;
+      }
+      let html = `<div class="s-ae">
+        <div class="s-assert"><p>${rich(s.title || "")}</p></div>`;
+      let ev = "";
+      if (s.layout === "img-left" && s.img && s.body && s.body.length) {
+        ev = `<div class="s-split">
+          <img src="${esc(s.img)}" alt="" />
+          <ul>${s.body.map((b) => `<li>${rich(b)}</li>`).join("")}</ul>
+        </div>`;
+      } else if (s.bodyHtml) {
+        let inner = "";
+        if (s.body && s.body.length) {
+          inner += `<ul>${s.body.map((b) => `<li>${rich(b)}</li>`).join("")}</ul>`;
+        }
+        inner += s.bodyHtml;
+        ev = inner;
+      } else if (s.body && s.body.length) {
+        ev = `<ul>${s.body.map((b) => `<li>${rich(b)}</li>`).join("")}</ul>`;
+      }
+      if (ev) html += `<div class="s-ev">${ev}</div>`;
+      if (s.img && s.layout !== "img-left") {
+        const wide = s.layout === "img-wide" ? " s-illust-wide" : "";
+        html += `<div class="s-illust${wide}"><img src="${esc(s.img)}" alt="" /></div>`;
+      }
+      html += `</div>`;
+      return html;
+    }
+
+    function paint() {
+      const s = SLIDES[idx];
+      stage.innerHTML = `<div class="slide active">${renderPresent(s, idx)}</div>`;
+      const { start, end } = sectionBounds(idx);
+      const local = idx - start + 1;
+      const localTotal = end - start + 1;
+      const sec = sectionOrdinal(idx);
+      const secTotal = sectionTotal();
+      if (s.kind === "section") {
+        slideLabel.textContent = `Section ${sec} / ${secTotal}`;
+      } else {
+        slideLabel.textContent = `Section ${sec} · ${local}/${localTotal}`;
+      }
+      progress.style.width = `${((idx + 1) / SLIDES.length) * 100}%`;
+    }
+
+    function enterPresent(startAt = 0) {
+      presenting = true;
+      idx = Math.max(0, Math.min(startAt, SLIDES.length - 1));
+      document.body.classList.add("presenting");
+      deck.hidden = false;
+      paint();
+      history.replaceState(null, "", "#present");
+    }
+    function exitPresent() {
+      presenting = false;
+      document.body.classList.remove("presenting");
+      deck.hidden = true;
+      if (location.hash === "#present") {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+    }
+
+    /** Inclusive [start, end] of slides sharing SLIDES[i].section */
+    function sectionBounds(i) {
+      const key = SLIDES[i].section;
+      let start = i;
+      let end = i;
+      while (start > 0 && SLIDES[start - 1].section === key) start--;
+      while (end < SLIDES.length - 1 && SLIDES[end + 1].section === key) end++;
+      return { start, end };
+    }
+    function nextInSection() {
+      const { end } = sectionBounds(idx);
+      if (idx < end) {
+        idx++;
+        paint();
+      }
+    }
+    function prevInSection() {
+      const { start } = sectionBounds(idx);
+      if (idx > start) {
+        idx--;
+        paint();
+      }
+    }
+    function nextSection() {
+      const { end } = sectionBounds(idx);
+      if (end < SLIDES.length - 1) {
+        idx = end + 1;
+        paint();
+      }
+    }
+    function prevSection() {
+      const { start } = sectionBounds(idx);
+      if (start <= 0) return;
+      const key = SLIDES[start - 1].section;
+      let s = start - 1;
+      while (s > 0 && SLIDES[s - 1].section === key) s--;
+      idx = s;
+      paint();
+    }
+
+    document.getElementById("btn-present").addEventListener("click", () => enterPresent(0));
+    document.getElementById("btn-exit").addEventListener("click", exitPresent);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "p" || e.key === "P") {
+        if (e.target.matches("input, textarea, [contenteditable]")) return;
+        e.preventDefault();
+        if (presenting) exitPresent();
+        else enterPresent(0);
+        return;
+      }
+      if (!presenting) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        exitPresent();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        nextSection();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        prevSection();
+      } else if (e.key === "ArrowDown" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault();
+        nextInSection();
+      } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+        e.preventDefault();
+        prevInSection();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        idx = 0;
+        paint();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        idx = SLIDES.length - 1;
+        paint();
+      } else if (e.key === "f" || e.key === "F") {
+        e.preventDefault();
+        if (!document.fullscreenElement) deck.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+    });
+
+    stage.addEventListener("click", (e) => {
+      if (!presenting) return;
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      // left third: previous slide in section; right: next (same as ↓/↑)
+      if (x < 0.3) prevInSection();
+      else nextInSection();
+    });
+
+    renderDoc();
+    if (location.hash === "#present") enterPresent(0);
+  </script>
+
+  <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+  <script src="../style/deck-doc.js"></script>
+</body>
+</html>
